@@ -8,8 +8,7 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #1e1e2f;
             color: white;
             padding: 20px;
         }
@@ -20,22 +19,8 @@
             background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
         }
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: block;
-            margin: 0 auto 15px;
-        }
-        .editable {
-            cursor: pointer;
-            display: block;
-            margin: 10px 0;
-            font-size: 18px;
-        }
         .social-links div {
-            margin: 5px 0;
+            margin: 10px 0;
         }
         .social-links a {
             color: #ff9800;
@@ -49,48 +34,20 @@
 </head>
 <body>
     <div class="container">
-        <input type="file" id="upload" style="display: none;" accept="image/*" onchange="changeImage(event)">
-        <img src="profile.jpg" alt="Profile Picture" class="profile-pic" onclick="document.getElementById('upload').click()">
+        <h2>Mohamed AboElsadat</h2>
         
-        <h2 class="editable" contenteditable="true" onblur="saveData('name', this.innerText)">Your Name</h2>
+        <p>+201010414676</p>
         
-        <p class="editable" contenteditable="true" onblur="saveData('whatsapp', this.innerText)">Your WhatsApp Number</p>
-        
-        <p class="editable" contenteditable="true" onblur="saveData('bio', this.innerText)">Short bio about yourself.</p>
+        <p>Mohamed Aboelsadat - 24 years old - Egyptian<br>
+        Studying in Faculty of Engineering ( MTE ) at Horus University in Egypt.<br>
+        I’m looking for an opportunity to pursue my career as an engineer by broadening my skills and managerial experience.</p>
         
         <h3>My Links</h3>
         <div class="social-links">
-            <div><strong>Facebook:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('facebook', this.innerText)">Your Facebook Link</a></div>
-            <div><strong>Twitter:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('twitter', this.innerText)">Your Twitter Link</a></div>
-            <div><strong>LinkedIn:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('linkedin', this.innerText)">Your LinkedIn Link</a></div>
-            <div><strong>Instagram:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('instagram', this.innerText)">Your Instagram Link</a></div>
+            <div><strong>Gmail:</strong> <a href="https://mail.google.com/mail/u/1/#inbox">moaboelsadat3@gmail.com</a></div>
+            <div><strong>LinkedIn:</strong> <a href="https://eg.linkedin.com/in/mohamed-aboelsadat-955864283" target="_blank">LinkedIn Profile</a></div>
+            <div><strong>Instagram:</strong> <a href="https://www.instagram.com/m7.sadat" target="_blank">Instagram Profile</a></div>
         </div>
     </div>
-    <script>
-        function saveData(key, value) {
-            localStorage.setItem(key, value);
-        }
-        
-        function loadData() {
-            document.querySelector('.profile-pic').src = localStorage.getItem('profile-pic') || 'profile.jpg';
-            document.querySelectorAll('.editable').forEach(el => {
-                let key = el.getAttribute('onblur').match(/'(.+?)'/)[1];
-                if (localStorage.getItem(key)) {
-                    el.innerText = localStorage.getItem(key);
-                }
-            });
-        }
-
-        function changeImage(event) {
-            const reader = new FileReader();
-            reader.onload = function(){
-                document.querySelector('.profile-pic').src = reader.result;
-                localStorage.setItem('profile-pic', reader.result);
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        window.onload = loadData;
-    </script>
 </body>
 </html>
