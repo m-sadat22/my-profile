@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto 15px;
+        }
+        .editable {
+            cursor: pointer;
+            display: block;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .social-links div {
+            margin: 5px 0;
+        }
+        .social-links a {
+            color: #ff9800;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .social-links a:hover {
+            color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="file" id="upload" style="display: none;" accept="image/*" onchange="changeImage(event)">
+        <img src="profile.jpg" alt="Profile Picture" class="profile-pic" onclick="document.getElementById('upload').click()">
+        
+        <h2 class="editable" contenteditable="true" onblur="saveData('name', this.innerText)">Your Name</h2>
+        
+        <p class="editable" contenteditable="true" onblur="saveData('whatsapp', this.innerText)">Your WhatsApp Number</p>
+        
+        <p class="editable" contenteditable="true" onblur="saveData('bio', this.innerText)">Short bio about yourself.</p>
+        
+        <h3>My Links</h3>
+        <div class="social-links">
+            <div><strong>Facebook:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('facebook', this.innerText)">Your Facebook Link</a></div>
+            <div><strong>Twitter:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('twitter', this.innerText)">Your Twitter Link</a></div>
+            <div><strong>LinkedIn:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('linkedin', this.innerText)">Your LinkedIn Link</a></div>
+            <div><strong>Instagram:</strong> <a href="#" class="editable" contenteditable="true" onblur="saveData('instagram', this.innerText)">Your Instagram Link</a></div>
+        </div>
+    </div>
+    <script>
+        function saveData(key, value) {
+            localStorage.setItem(key, value);
+        }
+        
+        function loadData() {
+            document.querySelector('.profile-pic').src = localStorage.getItem('profile-pic') || 'profile.jpg';
+            document.querySelectorAll('.editable').forEach(el => {
+                let key = el.getAttribute('onblur').match(/'(.+?)'/)[1];
+                if (localStorage.getItem(key)) {
+                    el.innerText = localStorage.getItem(key);
+                }
+            });
+        }
+
+        function changeImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                document.querySelector('.profile-pic').src = reader.result;
+                localStorage.setItem('profile-pic', reader.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>
